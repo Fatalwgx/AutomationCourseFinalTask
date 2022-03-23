@@ -6,6 +6,7 @@ class BasePageLocators():
 
 class MainPageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    VIEW_CART_BUTTON = (By.XPATH, '//a[@class="btn btn-default"]')
 
 class LoginPageLocators():
     LOGIN_FORM = (By.CSS_SELECTOR, '#login_form')
@@ -18,3 +19,7 @@ class ProductPageLocators():
     PRODUCT_PRICE = (By.CSS_SELECTOR, 'p.price_color')
     CART_PRICE = (By.CSS_SELECTOR, '.alertinner p strong')
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, 'div.alert.alert-safe.alert-noicon.alert-success.fade.in:first-child')
+
+class CartPageLocators():
+    ADDED_ITEMS = (By.CSS_SELECTOR, '#basket_formset')
+    EMPTY_CART_NOTIFICATION = (By.CSS_SELECTOR, '#content_inner > p')

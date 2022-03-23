@@ -1,3 +1,5 @@
+from .pages.basket_page import CartPage
+from .pages.main_page import MainPage
 from .pages.base_page import BasePage
 from .pages.product_page import ProductPage
 from selenium.common.exceptions import NoAlertPresentException
@@ -9,6 +11,7 @@ import time
 base_url = 'http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/'
 link1 = 'http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/'
 
+@pytest.mark.skip
 @pytest.mark.parametrize('promo', ['0', '1', '2', '3', '4', '5', '6', pytest.param('7', marks=pytest.mark.xfail), '8', '9'])
 def test_guest_can_add_product_to_cart(browser, promo):
     link = f'{base_url}?promo=offer{promo}'
@@ -50,3 +53,13 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page.open()
     page.go_to_login_page()
     page.should_be_login_link()
+
+@pytest.mark.teststage
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    page = ProductPage(browser, link1)
+    page.open()
+    page.go_to_cart()
+    cart_page = CartPage(browser, browser.current_url)
+    cart_page.should_be_cart_page()
+    cart_page.cart_should_be_empty()
+    cart_page.cart_empty_message_present()
