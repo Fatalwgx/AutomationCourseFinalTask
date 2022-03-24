@@ -11,7 +11,7 @@ class ProductPage(BasePage):
         button.click()
         
     def should_solve_quiz(self):
-        self.solve_quiz_and_get_code(self.browser)
+        self.solve_quiz_and_get_code()
 
     def alert_should_popup(self):
         product_title = (self.browser.find_element(*ProductPageLocators.PRODUCT_TITLE)).text

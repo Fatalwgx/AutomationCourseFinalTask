@@ -1,3 +1,4 @@
+from .pages.login_page import LoginPage
 from .pages.basket_page import CartPage
 from .pages.main_page import MainPage
 from .pages.base_page import BasePage
@@ -7,9 +8,12 @@ from selenium.webdriver.common.by import By
 from .pages.locators import ProductPageLocators
 import pytest
 import time
+import faker
 
 base_url = 'http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/'
 link1 = 'http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/'
+login_link = 'http://selenium1py.pythonanywhere.com/en-gb/accounts/login/'
+offer1_link = 'http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/?promo=offer7'
 
 @pytest.mark.skip
 @pytest.mark.parametrize('promo', ['0', '1', '2', '3', '4', '5', '6', pytest.param('7', marks=pytest.mark.xfail), '8', '9'])
@@ -54,7 +58,6 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page.go_to_login_page()
     page.should_be_login_link()
 
-@pytest.mark.teststage
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     page = ProductPage(browser, link1)
     page.open()
@@ -63,3 +66,27 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     cart_page.should_be_cart_page()
     cart_page.cart_should_be_empty()
     cart_page.cart_empty_message_present()
+
+@pytest.mark.teststage
+class TestUserAddToBasketFromProductPage():
+    @pytest.fixture(scope='function', autouse=True)
+    def setup(self, browser):
+        page = LoginPage(browser, login_link)
+        page.open()
+        f = faker.Faker()
+        email = f.email()
+        page.register_new_user(email, 'SuperSecret567')
+        page.should_be_authorized_user()
+
+    def test_user_cant_see_success_message(self, browser):
+        page = ProductPage(browser, link1)
+        page.open()
+        page.should_not_be_present()
+
+    def test_user_can_add_product_to_cart(self, browser):
+        page = ProductPage(browser, link1)
+        page.open()
+        page.should_add_to_cart()
+        #page.should_solve_quiz()
+        page.alert_should_popup()
+        page.prices_should_match()
