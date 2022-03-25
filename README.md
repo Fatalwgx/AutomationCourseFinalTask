@@ -13,4 +13,4 @@ To use these tests on Windows:
  - In explorer path field type 'cmd', press enter
  - In opened prompt type 'pytest -v --tb=line --language=en -m need_review'
 
-### Note that this repository was used for code review by teachers and other students so for consistency variable name, test names, class names, test marks were named as they were suggested in the course, even though it's almost gibberish
+### Note that this repository was used for code review by teachers and other students so for consistency variable names, test names, class names, test marks were named as they were suggested in the course, even though it's almost gibberish
