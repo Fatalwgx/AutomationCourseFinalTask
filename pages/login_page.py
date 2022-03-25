@@ -1,8 +1,5 @@
 from .base_page import BasePage
 from .locators import LoginPageLocators
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-import pytest
 
 class LoginPage(BasePage):
     def should_be_login_page(self):
@@ -28,4 +25,3 @@ class LoginPage(BasePage):
         confirm_pass.send_keys(password)
         button = self.browser.find_element(*LoginPageLocators.REGISTER_BUTTON)
         button.click()
-

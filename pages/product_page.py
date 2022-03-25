@@ -1,9 +1,5 @@
 from .base_page import BasePage
 from .locators import ProductPageLocators
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException
 
 class ProductPage(BasePage):
     def should_add_to_cart(self):
