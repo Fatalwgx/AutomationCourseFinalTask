@@ -4,7 +4,7 @@
 
 Final test during the Automation training course
 
-To use these tests
+To use these tests on Windows:
 1. Clone repo
 2. Install requierements.txt using pip:
  - Open requirements.txt folder, in explorer path field type 'cmd', press enter
